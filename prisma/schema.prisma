@@ -29,21 +29,48 @@ model user {
 }
 
 model wallet {
-  id      String @id @default(uuid())
+  id      String   @id @default(uuid())
   money   Int
-  user    user   @relation(fields: [user_id], references: [id])
-  user_id String @unique
+  user    user     @relation(fields: [user_id], references: [id])
+  user_id String   @unique
+  combos  combos[]
 }
 
 model item {
-  id         String       @id @default(uuid())
-  name       String
-  price      Int
-  type       ItemCategory
-  avatar_url String
+  id          String        @id @default(uuid())
+  name        String
+  price       Float
+  type        ItemCategory
+  avatar_url  String?
+  shop_item   shop_item?
+  combos_item combos_item[]
 }
 
 enum ItemCategory {
   DRINK
   FOOD
+}
+
+model shop_item {
+  id      String @id @default(uuid())
+  item_id String @unique
+  item    item   @relation(fields: [item_id], references: [id])
+  amount  Int
+}
+
+model combos {
+  id          String        @id @default(uuid())
+  wallet_id   String
+  wallet      wallet        @relation(fields: [wallet_id], references: [id])
+  name        String
+  combos_item combos_item[]
+}
+
+model combos_item {
+  id        String @id @default(uuid())
+  combos_id String
+  combo     combos @relation(fields: [combos_id], references: [id])
+  item_id   String
+  item      item   @relation(fields: [item_id], references: [id])
+  amount    Int
 }
