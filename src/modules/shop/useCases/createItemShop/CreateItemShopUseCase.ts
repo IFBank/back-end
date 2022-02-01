@@ -15,7 +15,7 @@ class CreateItemShopUseCase {
     });
 
     if (!item) {
-      throw new AppError("Item don't exists", 20228);
+      throw new AppError("Item doesn't exist", 20228);
     }
 
     const shop_item = await prisma.shop_item.findFirst({
@@ -25,7 +25,7 @@ class CreateItemShopUseCase {
     });
 
     if (shop_item) {
-      throw new AppError("Item on shop already exists", 202213);
+      throw new AppError("Item on shop already exist", 202213);
     }
 
     await prisma.shop_item.create({

@@ -16,11 +16,11 @@ class CreateComboUseCase {
     });
 
     if (!wallet) {
-      throw new AppError("Wallet don't exists", 20229);
+      throw new AppError("Wallet doesn't exist", 20229);
     }
 
     if (wallet.user_id !== user_id) {
-      throw new AppError("User don't have permission", 202210, 401);
+      throw new AppError("User doesn't have permission", 202210, 401);
     }
 
     await prisma.combos.create({

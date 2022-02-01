@@ -26,7 +26,7 @@ class CreateUserUseCase {
     });
 
     if (userAlreadyExists) {
-      throw new AppError("Email already exists", 20222);
+      throw new AppError("Email already exist", 20222);
     }
 
     const ifms = await prisma.ifms.findFirst({

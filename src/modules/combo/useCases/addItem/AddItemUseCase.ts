@@ -17,7 +17,7 @@ class AddItemUseCase {
     });
 
     if (!combo) {
-      throw new AppError("Combo don't exists", 202211);
+      throw new AppError("Combo doesn't exist", 202211);
     }
 
     const wallet = await prisma.wallet.findFirst({
@@ -27,7 +27,7 @@ class AddItemUseCase {
     });
 
     if (combo.wallet_id !== wallet?.id) {
-      throw new AppError("User don't have permission", 202212, 401);
+      throw new AppError("User doesn't have permission", 202212, 401);
     }
 
     const combo_item = await prisma.combos_item.findFirst({
@@ -38,7 +38,7 @@ class AddItemUseCase {
     });
 
     if (combo_item) {
-      throw new AppError("Item on combo already exists", 202214);
+      throw new AppError("Item on combo already exist", 202214);
     }
 
     await prisma.combos_item.create({

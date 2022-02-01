@@ -28,13 +28,13 @@ class CreateIFMSUseCase {
       // VALIDAR VERACIDADE DAS INFO
       const tokenRA = md5(`IFMSAPPWS-RA${parseInt(ra).toString()}`);
       const {
-        data: { resposta },
+        data: { resposta: response },
       } = await apiIF.get(
         `?ra=${ra}&nome=${name}&cpf=${cpf}&data_nascimento=${born_date}&token=${tokenRA}`
       );
 
-      if (resposta !== "true") {
-        throw new AppError("Student don't exists", 20221, 401);
+      if (response !== "true") {
+        throw new AppError("Student doesn't exist", 20221, 401);
       }
 
       // SALVAR NO DB

@@ -9,7 +9,7 @@ export async function ensureAdmin(
   const { is_admin } = request.user;
 
   if (!is_admin) {
-    throw new AppError("User don't have permission", 20227, 401);
+    throw new AppError("User doesn't have permission", 20227, 401);
   }
 
   return next();

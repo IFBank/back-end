@@ -30,10 +30,11 @@ model user {
 
 model wallet {
   id      String   @id @default(uuid())
-  money   Int
+  money   Float
   user    user     @relation(fields: [user_id], references: [id])
   user_id String   @unique
   combos  combos[]
+  order   order[]
 }
 
 model item {
@@ -44,6 +45,7 @@ model item {
   avatar_url  String?
   shop_item   shop_item?
   combos_item combos_item[]
+  order_item  order_item[]
 }
 
 enum ItemCategory {
@@ -73,4 +75,30 @@ model combos_item {
   item_id   String
   item      item   @relation(fields: [item_id], references: [id])
   amount    Int
+}
+
+model order {
+  id                 String              @id @default(uuid())
+  name               String              @unique
+  wallet_id          String
+  wallet             wallet              @relation(fields: [wallet_id], references: [id])
+  withdraw_date      DateTime
+  order_item         order_item[]
+  user_order_history user_order_history?
+}
+
+model order_item {
+  id       String @id @default(uuid())
+  item_id  String
+  item     item   @relation(fields: [item_id], references: [id])
+  order_id String
+  order    order  @relation(fields: [order_id], references: [id])
+  amount   Int
+}
+
+model user_order_history {
+  id           String   @id @default(uuid())
+  order_id     String   @unique
+  order        order    @relation(fields: [order_id], references: [id])
+  retired_date DateTime
 }

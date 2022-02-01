@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "wallet" ALTER COLUMN "money" SET DATA TYPE DOUBLE PRECISION;
