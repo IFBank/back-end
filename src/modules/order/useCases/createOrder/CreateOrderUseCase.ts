@@ -3,16 +3,15 @@ import { AppError } from "../../../../errors/AppError";
 import { generateIDSequence } from "../../../../utils/generateIDSequence";
 
 interface IOrder {
-  wallet_id: string;
   user_id: string;
   itens: any;
 }
 
 class CreateOrderUseCase {
-  async execute({ user_id, wallet_id, itens }: IOrder) {
+  async execute({ user_id, itens }: IOrder) {
     const wallet = await prisma.wallet.findFirst({
       where: {
-        id: wallet_id,
+        user_id,
       },
     });
 
