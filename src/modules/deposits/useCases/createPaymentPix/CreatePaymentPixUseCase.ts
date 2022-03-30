@@ -40,7 +40,7 @@ class CreatePaymentPixUseCase {
 
       const qrCode = await apiPIXHomo.get(`/v2/loc/${cob.data.loc.id}/qrcode`);
 
-      return qrCode.data.imagemQrcode;
+      return qrCode.data;
     } catch (error) {}
   }
 }

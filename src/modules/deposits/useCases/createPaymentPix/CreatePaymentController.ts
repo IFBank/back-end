@@ -8,13 +8,14 @@ class CreatePaymentController {
 
     const createPaymentPixUseCase = new CreatePaymentPixUseCase();
 
-    const payment = await createPaymentPixUseCase.execute({
+    const { qrcode, imagemQrcode } = await createPaymentPixUseCase.execute({
       user_id,
       value,
     });
 
     return response.json({
-      qrCode: payment,
+      qrCodeText: qrcode,
+      qrCodeImage: imagemQrcode,
     });
   }
 }
