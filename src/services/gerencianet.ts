@@ -7,7 +7,12 @@ import axios, { AxiosError } from "axios";
 let isRefreshing = false;
 let failedRequestsQueue = [];
 
-var certPath = resolve(__dirname, "..", "cert", "homologacao-ifbank_cert.p12");
+var certPath = resolve(
+  __dirname,
+  "..",
+  "cert",
+  "producao-367030-prod_ifbank.p12"
+);
 var certHomo = fs.readFileSync(certPath);
 var authHomo = Buffer.from(
   `${process.env.CLIENT_ID_HOMO}:${process.env.CLIENT_SECRET_HOMO}`
@@ -19,7 +24,7 @@ var agentHomo = new https.Agent({
 });
 
 const apiPIXHomo = axios.create({
-  baseURL: "https://api-pix-h.gerencianet.com.br",
+  baseURL: "https://api-pix.gerencianet.com.br",
   httpsAgent: agentHomo,
 });
 
@@ -81,3 +86,5 @@ apiPIXHomo.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+export { apiPIXHomo };

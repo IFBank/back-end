@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { combosRoutes } from "./combo.routes";
+import { depositsRoutes } from "./deposits.routes";
 import { ifmsRoutes } from "./ifms.routes";
 import { itensRoutes } from "./item.routes";
 import { orderRoutes } from "./order.routes";
@@ -16,5 +17,6 @@ router.use("/shop", shopRoutes);
 router.use("/combo", combosRoutes);
 router.use("/order", orderRoutes);
 router.use("/wallet", walletRoutes);
+router.use("/deposit", depositsRoutes);
 
 export { router };
