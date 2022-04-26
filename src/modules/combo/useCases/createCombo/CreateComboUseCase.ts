@@ -18,12 +18,14 @@ class CreateComboUseCase {
       throw new AppError("User doesn't exist", 20229);
     }
 
-    await prisma.combos.create({
+    const combo = await prisma.combos.create({
       data: {
         name,
         wallet_id: wallet.id,
       },
     });
+
+    return combo;
   }
 }
 

@@ -7,12 +7,13 @@ class CreateComboController {
     const { name } = request.body;
 
     const createComboUseCase = new CreateComboUseCase();
-    await createComboUseCase.execute({
+    const { id } = await createComboUseCase.execute({
       name,
       user_id,
     });
 
     return response.json({
+      combo_id: id,
       message: "Combo created!",
     });
   }

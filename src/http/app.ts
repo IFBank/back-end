@@ -22,7 +22,7 @@ app.use(
     if (err instanceof AppError) {
       return response.status(err.statusCode).json({
         code: err.errorCode,
-        message: err.message
+        message: err.message,
       });
     }
 
