@@ -1,6 +1,8 @@
 import { prisma } from "../../../../database/prisma/prismaClient";
 import { AppError } from "../../../../errors/AppError";
 import { generateIDSequence } from "../../../../utils/generateIDSequence";
+import schedule from "node-schedule";
+import moment from "moment-timezone";
 
 interface IOrder {
   user_id: string;
@@ -72,9 +74,13 @@ class CreateOrderUseCase {
       },
     });
 
+    const now = moment();
+    const now_more_time = now.add(30, "minutes").format();
+    const withdraw_date = moment.tz(now_more_time, "UTC").format();
+
     const order = await prisma.order.create({
       data: {
-        withdraw_date: new Date(),
+        withdraw_date,
         wallet_id: wallet.id,
         name: generateIDSequence(8),
       },
@@ -83,6 +89,23 @@ class CreateOrderUseCase {
         name: true,
       },
     });
+
+    schedule.scheduleJob(
+      order.id,
+      moment.tz(withdraw_date, "America/Campo_Grande").format(),
+      async function () {
+        await prisma.order.delete({
+          where: {
+            id: order.id,
+          },
+          include: {
+            order_item: true,
+          },
+        });
+
+        console.log(`Excluindo o pedido: ${order.name}`);
+      }
+    );
 
     let index = 0;
     for (var [item_id, amount] of Object.entries(itens)) {

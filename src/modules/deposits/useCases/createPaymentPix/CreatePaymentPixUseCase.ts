@@ -33,7 +33,7 @@ class CreatePaymentPixUseCase {
           nome: user.ifms.name,
         },
         valor: {
-          original: value,
+          original: parseFloat(value).toFixed(2).toString(),
         },
         chave: process.env.PIX_KEY_GN,
       });
