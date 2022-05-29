@@ -24,6 +24,7 @@ class GetOrderByIdUseCase {
             amount: true,
             item: {
               select: {
+                id: true,
                 avatar_url: true,
                 name: true,
                 price: true,
