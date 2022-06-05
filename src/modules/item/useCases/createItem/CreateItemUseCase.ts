@@ -14,12 +14,19 @@ class CreateItemUseCase {
       throw new AppError("Price may be more then 0.25", 20223);
     }
 
-    await prisma.item.create({
+    const item = await prisma.item.create({
       data: {
         avatar_url,
         name,
         price,
         type,
+      },
+    });
+
+    await prisma.shop_item.create({
+      data: {
+        amount: 0,
+        item_id: item.id,
       },
     });
   }
