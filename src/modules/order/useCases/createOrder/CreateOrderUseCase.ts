@@ -75,7 +75,7 @@ class CreateOrderUseCase {
     });
 
     const now = moment();
-    const now_more_time = now.add(5, "minutes").format();
+    const now_more_time = now.add(30, "minutes").format();
     const withdraw_date = moment.tz(now_more_time, "UTC").format();
 
     const order = await prisma.order.create({
