@@ -27,7 +27,7 @@ class AddItemUseCase {
     });
 
     if (combo.wallet_id !== wallet?.id) {
-      throw new AppError("User doesn't have permission", 202212, 401);
+      throw new AppError("User doesn't have permission", 202212, 400);
     }
 
     const combo_item = await prisma.combos_item.findFirst({

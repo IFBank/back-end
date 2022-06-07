@@ -47,13 +47,13 @@ class AuthenticateUserUseCase {
     });
 
     if (!user) {
-      throw new AppError("Email or password incorrect!", 20224, 401);
+      throw new AppError("Email or password incorrect!", 20224, 400);
     }
 
     const hashPassword = await compare(password, user?.password);
 
     if (!hashPassword) {
-      throw new AppError("Email or password incorrect!", 20224, 401);
+      throw new AppError("Email or password incorrect!", 20224, 400);
     }
 
     const token = sign({}, process.env.RA_TOKEN_AUTH_SECRET as string, {

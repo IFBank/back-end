@@ -79,7 +79,7 @@ class CreateIFMSUseCase {
       );
 
       if (response !== "true") {
-        throw new AppError("Student doesn't exist", 20221, 401);
+        throw new AppError("Student doesn't exist", 20221, 400);
       }
 
       // SALVAR NO DB

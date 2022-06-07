@@ -25,7 +25,7 @@ class CreateOrderUseCase {
       throw new AppError(
         "User doesn't have permission to access this wallet",
         202216,
-        401
+        400
       );
     }
 
@@ -62,7 +62,7 @@ class CreateOrderUseCase {
     }
 
     if (wallet.money < totalPrice) {
-      throw new AppError("User doesn't have money sufficient", 202218, 401);
+      throw new AppError("User doesn't have money sufficient", 202218, 400);
     }
 
     await prisma.wallet.update({
@@ -102,8 +102,6 @@ class CreateOrderUseCase {
             order_item: true,
           },
         });
-
-        console.log(`Excluindo o pedido: ${order.name}`);
       }
     );
 

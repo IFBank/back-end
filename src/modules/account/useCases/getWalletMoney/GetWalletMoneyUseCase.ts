@@ -14,7 +14,7 @@ class GetWalletMoneyUseCase {
     });
 
     if (!wallet) {
-      throw new AppError("User doesn't exists", 202224, 401);
+      throw new AppError("User doesn't exists", 202224, 400);
     }
 
     return wallet.money;
